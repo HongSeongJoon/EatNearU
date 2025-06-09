@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>식당 상세</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>버거부기 상세정보</title>
 
   <!-- ✅ Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&family=Rancho&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200..900&family=Rancho&display=swap" rel="stylesheet" />
 
   <style>
     body {
@@ -80,7 +80,6 @@
     .map-section {
       flex: 1;
       min-height: 300px;
-      background-color: #f0f0f0;
       border-radius: 8px;
     }
 
@@ -148,27 +147,25 @@
     </div>
   </header>
 
-  <!-- ✅ Content -->
+  <!-- ✅ Main Content -->
   <div class="container">
-    <!-- 상단 이미지 -->
-    <img class="main-image" src="https://source.unsplash.com/1000x300/?restaurant,korean" alt="식당 대표 이미지">
+
+    <!-- 이미지 -->
+    <img class="main-image" src="https://source.unsplash.com/1000x300/?burger,restaurant" alt="버거부기 이미지">
 
     <!-- 식당 정보 + 지도 -->
     <div class="info-section">
-      <!-- 왼쪽 텍스트 -->
       <div class="info-text">
-        <h2>한식당 삼거리</h2>
-        <p>📍 서울시 강남구 역삼동 123-45</p>
+        <h2>버거부기</h2>
+        <p>📍 서울시 어딘가 (실제 주소는 Geocoding으로 검색됨)</p>
         <p>📞 02-123-4567</p>
-        <p>⏰ 10:00 ~ 22:00 (매주 일요일 휴무)</p>
-        <p>⭐ 평점: 4.2 / 5.0</p>
+        <p>⏰ 10:30 ~ 21:00 (연중무휴)</p>
+        <p>⭐ 평점: 4.7 / 5.0</p>
         <button class="reserve-btn" onclick="window.open('https://booking.naver.com')">네이버 예약하기 ↗</button>
       </div>
 
-      <!-- 오른쪽 지도 -->
-      <div class="map-section" id="map">
-        <!-- 실제 지도는 JS로 삽입될 예정 -->
-        <p style="padding: 20px;">(여기에 네이버 지도가 표시됩니다)</p>
+      <div class="map-section" id="map" style="width:100%;height:300px;background:#f0f0f0;">
+        <!-- 카카오 지도가 여기에 표시됨 -->
       </div>
     </div>
 
@@ -176,18 +173,16 @@
     <div class="review-section">
       <h3>이용자 리뷰</h3>
 
-      <!-- 리뷰 카드 예시 -->
       <div class="review-card">
-        <div class="author">홍길동 · ★★★★☆</div>
-        <div class="content">음식이 깔끔하고 사장님이 친절하셨어요!</div>
+        <div class="author">이민호 · ★★★★☆</div>
+        <div class="content">패티가 진짜 두툼하고 맛있어요! 재방문 의사 있음.</div>
       </div>
 
       <div class="review-card">
-        <div class="author">김민지 · ★★★★★</div>
-        <div class="content">완전 강추! 다음에 또 올 거예요 😄</div>
+        <div class="author">김지현 · ★★★★★</div>
+        <div class="content">감튀도 완전 바삭하고 최고예요 😍</div>
       </div>
 
-      <!-- 리뷰 작성 폼 -->
       <div class="review-form">
         <h4>리뷰 작성하기</h4>
         <div class="star-rating">⭐⭐⭐⭐⭐</div>
@@ -197,6 +192,41 @@
     </div>
   </div>
 
+  <!-- ✅ Kakao Map API + 지도 코드 -->
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d60dcbabd6cae4952ded668331f7fc52&libraries=services"></script>
+  <script>
+    window.onload = function () {
+      var container = document.getElementById('map');
+      var options = {
+        center: new kakao.maps.LatLng(37.5665, 126.9780), // 초기 중심 (서울시청)
+        level: 3
+      };
+
+      var map = new kakao.maps.Map(container, options);
+      var geocoder = new kakao.maps.services.Geocoder();
+
+      // ✅ 검색할 주소 또는 상호명 (가능한 정확히 입력)
+      var searchAddress = "버거부기 강남";
+
+      geocoder.addressSearch(searchAddress, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          map.setCenter(coords);
+
+          var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+          });
+
+          var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="padding:5px;font-size:13px;">버거부기</div>'
+          });
+          infowindow.open(map, marker);
+        } else {
+          alert("지도를 불러올 수 없습니다. 주소를 확인하세요.");
+        }
+      });
+    };
+  </script>
 </body>
 </html>
-
