@@ -1,0 +1,44 @@
+<!-- mypage.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>마이페이지</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+    body { font-family: 'Noto Serif KR', serif; padding: 50px; }
+    h2 { margin-bottom: 20px; }
+    .section { margin-bottom: 40px; }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="home.html">Home</a> |
+      <a href="mypage.html">마이페이지</a> |
+      <a href="login.html">로그인</a> |
+      <a href="signup.html">회원가입</a>
+    </nav>
+  </header>
+
+  <h2>내 활동</h2>
+
+  <div class="section">
+    <h3>작성한 리뷰</h3>
+    <div class="card">🍔 버거부기 - 맛있고 양 많아요!</div>
+    <div class="card">🍜 멘멘야 - 면이 쫄깃해요!</div>
+  </div>
+
+  <div class="section">
+    <h3>예약한 식당</h3>
+    <div class="card"><a href="https://booking.naver.com/restaurant/reserve?rid=123">🍔 버거부기 예약내역 보기</a></div>
+    <div class="card"><a href="https://booking.naver.com/restaurant/reserve?rid=456">🍜 멘멘야 예약내역 보기</a></div>
+  </div>
+</body>
+</html>
